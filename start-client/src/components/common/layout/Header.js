@@ -10,9 +10,9 @@ const Header = ({ children }) => (
       <Link to='/'>
         <Logo />
         <span className='title'>
-          Spring <strong>Initializr</strong>
+          Perseus <strong>Initializr</strong>
         </span>
-        <span className='description'>Bootstrap your application</span>
+        <span className='description'>Develop your microservice</span>
       </Link>
     </h1>
     {children}
