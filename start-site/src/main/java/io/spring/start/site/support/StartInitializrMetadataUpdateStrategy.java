@@ -43,8 +43,12 @@ public class StartInitializrMetadataUpdateStrategy extends DefaultInitializrMeta
 	@Override
 	protected List<DefaultMetadataElement> fetchSpringBootVersions(String url) {
 		List<DefaultMetadataElement> versions = super.fetchSpringBootVersions(url);
+
 		if (versions != null) {
-			return versions.stream().filter(this::isStartGenerationVersion).collect(Collectors.toList());
+			List<DefaultMetadataElement> filteredVersions = versions.stream().filter(this::isStartGenerationVersion).collect(Collectors.toList());
+			DefaultMetadataElement legacyVersion = new DefaultMetadataElement("2.0.9.RELEASE", "2.0.9", true);
+			filteredVersions.add(0, legacyVersion);
+			return filteredVersions;
 		}
 		return null;
 	}
