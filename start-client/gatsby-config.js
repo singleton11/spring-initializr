@@ -1,7 +1,7 @@
 const isDev = process.env.NODE_ENV === 'development'
 
 const siteMetadata = {
-  title: `Spring Initializr`,
+  title: `Perseus Spring Initializr`,
   description: `Initializr generates spring boot project with just what you need to start quickly!`,
   twitter: `@springboot`,
   canonical: `https://start.spring.io`,
