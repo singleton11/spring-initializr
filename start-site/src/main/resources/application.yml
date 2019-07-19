@@ -1234,9 +1234,6 @@ initializr:
     - id: 12
       default: false
     - id: 11
-      default: false
-    - id: 1.8
-      name: 8
       default: true
   languages:
     - name: Java
@@ -1244,9 +1241,6 @@ initializr:
       default: true
     - name: Kotlin
       id: kotlin
-      default: false
-    - name: Groovy
-      id: groovy
       default: false
   bootVersions:
     - name : Latest SNAPSHOT
