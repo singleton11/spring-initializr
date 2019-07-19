@@ -1197,7 +1197,7 @@ initializr:
       tags:
         build: maven
         format: project
-      default: true
+      default: false
       action: /starter.zip
     - name: Maven POM
       id: maven-build
@@ -1213,7 +1213,7 @@ initializr:
       tags:
         build: gradle
         format: project
-      default: false
+      default: true
       action: /starter.zip
     - name: Gradle Config
       id: gradle-build
