@@ -10,4 +10,5 @@ export const defaultDeps = [
   'cloud-stream',
   'amqp',
   'actuator',
+  'mapstruct',
 ]
