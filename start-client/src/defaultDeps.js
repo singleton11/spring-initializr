@@ -11,4 +11,6 @@ export const defaultDeps = [
   'amqp',
   'actuator',
   'mapstruct',
+  'swagger',
+  'swagger-ui',
 ]
