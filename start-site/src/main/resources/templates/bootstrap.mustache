@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: {{applicationName}}
+
+  cloud:
+    config:
+      uri: http://localhost:8888
+      failFast: false
+      retry:
+        initialInterval: 3000
+        maxAttempts: 100
+
+---
+spring:
+  profiles: test, prod
+
+  cloud:
+    config:
+      uri: http://perseus-config.perseus.svc.cluster.local:8888

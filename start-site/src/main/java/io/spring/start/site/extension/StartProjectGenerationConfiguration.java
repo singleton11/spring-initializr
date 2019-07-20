@@ -157,4 +157,13 @@ public class StartProjectGenerationConfiguration {
     return new CustomTasksGradleBuildCustomizer();
   }
 
+  @Bean
+  @ConditionalOnRequestedDependency("cloud-config-client")
+  public BootstrapProjectContributor bootstrapProjectContributor() {
+	  return new BootstrapProjectContributor(
+	      description,
+        new MustacheTemplateRenderer("classpath:/templates")
+    );
+  }
+
 }
