@@ -40,6 +40,25 @@ public class BaseControllerProjectContributor implements ProjectContributor {
     // Advice
     fileUtils.createDirectory("/controller/advice");
     String adviceContent = templateRenderer.render("advice", model);
-    fileUtils.createFileWithContent("/controller/advice/ControllerAdvice.java", adviceContent);
+    fileUtils.createFileWithContent("/controller/advice/ExceptionControllerAdvice.java", adviceContent);
+
+    // Exceptions
+    fileUtils.createDirectory("/exception");
+
+    String badRequestExceptionContent = templateRenderer.render("bad-request-exception", model);
+    String exceptionResponseContent = templateRenderer.render("exception-response", model);
+    String forbiddenExceptionContent = templateRenderer.render("forbidden-exception", model);
+    String httpExceptionContent = templateRenderer.render("http-exception", model);
+    String internalServerErrorExceptionContent = templateRenderer.render("internal-server-error-exception", model);
+    String notAuthorizedHttpExceptionContent = templateRenderer.render("not-authorized-http-exception", model);
+    String notFoundExceptionContent = templateRenderer.render("not-found-exception", model);
+
+    fileUtils.createFileWithContent("/exception/BadRequestException.java", badRequestExceptionContent);
+    fileUtils.createFileWithContent("/exception/ExceptionResponse.java", exceptionResponseContent);
+    fileUtils.createFileWithContent("/exception/ForbiddenException.java", forbiddenExceptionContent);
+    fileUtils.createFileWithContent("/exception/HttpException.java", httpExceptionContent);
+    fileUtils.createFileWithContent("/exception/InternalServerErrorException.java", internalServerErrorExceptionContent);
+    fileUtils.createFileWithContent("/exception/NotAuthorizedHttpException.java", notAuthorizedHttpExceptionContent);
+    fileUtils.createFileWithContent("/exception/NotFoundException.java", notFoundExceptionContent);
   }
 }
