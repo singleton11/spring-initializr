@@ -23,6 +23,7 @@ import { Meta } from '../components/common/meta'
 import { Typehead } from '../components/common/typehead'
 import { createTree, findRoot } from '../components/utils/Zip'
 import { isInRange } from '../components/utils/versions'
+import { defaultDeps } from "../defaultDeps";
 
 const WEIGHT_DEFAULT = 50
 
@@ -157,7 +158,7 @@ class IndexPage extends React.Component {
 
     this.setState({
       complete: true,
-      dependencies: [],
+      dependencies: this.lists.dependencies.filter(dep => defaultDeps.includes(dep.id)),
       tab: 'quick-search',
       more: false,
       error: false,
@@ -193,6 +194,7 @@ class IndexPage extends React.Component {
 
   dependencyAdd = dependency => {
     this.setState({ dependencies: [...this.state.dependencies, dependency] })
+    console.log(dependency);
   }
 
   dependencyRemove = dependency => {
