@@ -142,4 +142,9 @@ public class StartProjectGenerationConfiguration {
 	  return new CustomPluginsGradleBuildCustomizer();
   }
 
+  @Bean
+  public CustomTasksGradleBuildCustomizer customTasksGradleBuildCustomizer() {
+    return new CustomTasksGradleBuildCustomizer();
+  }
+
 }
