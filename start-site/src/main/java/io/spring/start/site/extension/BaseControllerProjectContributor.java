@@ -36,5 +36,10 @@ public class BaseControllerProjectContributor implements ProjectContributor {
     model.put("package", metadata.getPackageName().getContent());
     String baseControllerContent = templateRenderer.render("base-controller", model);
     fileUtils.createFileWithContent("/controller/BaseController.java", baseControllerContent);
+
+    // Advice
+    fileUtils.createDirectory("/controller/advice");
+    String adviceContent = templateRenderer.render("advice", model);
+    fileUtils.createFileWithContent("/controller/advice/ControllerAdvice.java", adviceContent);
   }
 }
