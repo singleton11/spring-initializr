@@ -1,0 +1,11 @@
+package {{package}}.controller;
+
+import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Api
+@SuppressWarnings("squid:S1610")
+@RequestMapping("/api/${spring.application.name}")
+public abstract class BaseController {
+
+}

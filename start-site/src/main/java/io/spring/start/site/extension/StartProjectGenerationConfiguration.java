@@ -126,6 +126,16 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnRequestedDependency("web")
+	public BaseControllerProjectContributor baseControllerProjectContributor() {
+		return new BaseControllerProjectContributor(
+				new MustacheTemplateRenderer("classpath:/templates"),
+				metadata,
+				description
+		);
+	}
+
+	@Bean
 	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
 	public GradleBuildSystemHelpDocumentCustomizer gradleBuildSystemHelpDocumentCustomizer() {
 		return new GradleBuildSystemHelpDocumentCustomizer();
