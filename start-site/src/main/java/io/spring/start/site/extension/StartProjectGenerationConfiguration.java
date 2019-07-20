@@ -20,6 +20,7 @@ import io.spring.initializr.generator.buildsystem.gradle.GradleBuildSystem;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnBuildSystem;
 import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
+import io.spring.initializr.generator.io.template.MustacheTemplateRenderer;
 import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.ResolvedProjectDescription;
 import io.spring.initializr.generator.spring.build.gradle.ConditionalOnGradleVersion;
@@ -27,7 +28,6 @@ import io.spring.initializr.metadata.InitializrMetadata;
 import io.spring.start.site.extension.springboot.SpringBootProjectGenerationConfiguration;
 import io.spring.start.site.extension.springcloud.SpringCloudProjectGenerationConfiguration;
 import io.spring.start.site.extension.springrestdocs.SpringRestDocsProjectGenerationConfiguration;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
@@ -113,6 +113,16 @@ public class StartProjectGenerationConfiguration {
 	@ConditionalOnRequestedDependency("restdocs")
 	public SpringRestDocsBuildCustomizer springRestDocsBuildCustomizer() {
 		return new SpringRestDocsBuildCustomizer();
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("swagger")
+	public SwaggerProjectContributor swaggerProjectContributor() {
+		return new SwaggerProjectContributor(
+				new MustacheTemplateRenderer("classpath:/templates"),
+				metadata,
+				description
+		);
 	}
 
 	@Bean
