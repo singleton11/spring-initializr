@@ -23,8 +23,12 @@ public class BootstrapProjectContributor implements ProjectContributor {
 
   @Override
   public void contribute(Path projectRoot) throws IOException {
-    Files.createDirectories(projectRoot.resolve("src/main/resources"));
-    Path file = Files.createFile(projectRoot.resolve("src/main/resources/bootstrap.yml"));
+    String resourcesFolder = "src/main/resources";
+    Path resourcesPath = projectRoot.resolve(resourcesFolder);
+    if (Files.notExists(resourcesPath)) {
+      Files.createDirectories(resourcesPath);
+    }
+    Path file = Files.createFile(projectRoot.resolve(resourcesFolder + "/bootstrap.yml"));
     Map<String, String> model = new HashMap<>();
     model.put("applicationName", description.getArtifactId());
     String content = templateRenderer.render("bootstrap", model);
