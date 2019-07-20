@@ -80,6 +80,13 @@ public class StartProjectGenerationConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnBuildSystem(GradleBuildSystem.ID)
+	@ConditionalOnRequestedDependency("mapstruct")
+	public MapStructGradleBuildCustomizer mapStructGradleBuildCustomizer() {
+		return new MapStructGradleBuildCustomizer(this.metadata);
+	}
+
+	@Bean
 	public SpringKafkaBuildCustomizer springKafkaBuildCustomizer() {
 		return new SpringKafkaBuildCustomizer(this.description);
 	}
