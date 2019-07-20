@@ -137,4 +137,9 @@ public class StartProjectGenerationConfiguration {
 		return new MavenBuildSystemHelpDocumentCustomizer();
 	}
 
+	@Bean
+  public CustomPluginsGradleBuildCustomizer customPluginsGradleBuildCustomizer() {
+	  return new CustomPluginsGradleBuildCustomizer();
+  }
+
 }
