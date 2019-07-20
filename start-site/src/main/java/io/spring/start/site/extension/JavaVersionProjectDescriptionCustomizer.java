@@ -60,10 +60,10 @@ public class JavaVersionProjectDescriptionCustomizer implements ProjectDescripti
 			updateTo(description, "1.8");
 		}
 		// 11 and 12 support only as of 2.1.x
-		if ((javaGeneration == 11 || javaGeneration == 12)
-				&& isSpringBootVersionBefore(description, VERSION_2_1_0_M1)) {
-			updateTo(description, "1.8");
-		}
+//		if ((javaGeneration == 11 || javaGeneration == 12)
+//				&& isSpringBootVersionBefore(description, VERSION_2_1_0_M1)) {
+//			updateTo(description, "1.8");
+//		}
 	}
 
 	private void updateTo(ProjectDescription projectDescription, String jvmVersion) {
