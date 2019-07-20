@@ -16,7 +16,7 @@ public class CustomTasksGradleBuildCustomizer implements BuildCustomizer<GradleB
                   "\"PASSED\", \"STARTED\", \"FAILED\", \"SKIPPED\""
               )
       );
-      test.set("failfast", "true");
+      test.set("failFast", "true");
     });
 
     build.customizeTask("jar", jar -> {
