@@ -324,6 +324,24 @@ initializr:
           id: mobile
           description: Framework that provides capabilities to detect the type of device making a request to your Spring web site and serve alternative views based on that device.
           versionRange : "[1.5.0.RELEASE, 2.0.0.M1)"
+        - name: Swagger 2
+          id: swagger
+          description: Swagger Description for your API
+          weight: 100
+          facets:
+            - swagger
+          groupId: io.springfox
+          artifactId: springfox-swagger2
+          version: 2.9.2
+        - name: Swagger UI
+          id: swagger-ui
+          description: Swagger Description for your API
+          weight: 100
+          facets:
+            - swagger-ui
+          groupId: io.springfox
+          artifactId: springfox-swagger-ui
+          version: 2.9.2
     - name: Template Engines
       content:
         - name: Thymeleaf
