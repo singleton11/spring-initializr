@@ -174,4 +174,11 @@ public class StartProjectGenerationConfiguration {
 		);
 	}
 
+	@Bean
+	public GitlabCiProjectContributor gitlabCiProjectContributor() {
+		return new GitlabCiProjectContributor(
+				new MustacheTemplateRenderer("classpath:/templates")
+		);
+	}
+
 }

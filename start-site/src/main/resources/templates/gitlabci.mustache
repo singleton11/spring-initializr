@@ -1,0 +1,79 @@
+image: $CI_REGISTRY/perseus/images/gradle-alpine-jdk11:master
+
+stages:
+  - build
+  - release
+  - update
+
+variables:
+  HTTP_PROXY: http://s-proxy-04-g.global.bcs:8080
+  HTTPS_PROXY: http://s-proxy-04-g.global.bcs:8080
+  NO_PROXY: s-t-mic-kubeapi.t-global.bcs,.svc.cluster.local,$CI_REGISTRY
+  GRADLE_OPTS: >
+    -Dorg.gradle.daemon=false
+    -DproxyHost=s-proxy-04-g.global.bcs
+    -DproxyPort=8080
+  SONARQUBE_OPTS: >
+    -Dsonar.host.url=https://sonarqube.gitlab.bcs.ru
+    -Dsonar.gitlab.project_id=$CI_PROJECT_PATH
+    -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA
+    -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
+    -Dsonar.gitlab.api_version=v4
+  KUBECONFIG: /etc/deploy/config
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+build:
+  stage: build
+  script:
+    - gradle sonarqube $SONARQUBE_OPTS
+    - gradle --build-cache build
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1d
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - build
+      - .gradle
+  tags:
+    - test
+
+release:
+  stage: release
+  image: $CI_REGISTRY/devops/images/docker/buildimage:master
+  services:
+    - name: docker:dind
+  variables:
+    CONTAINER_IMAGE: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME
+    DOCKER_BUILD_ARGS: --build-arg CI_REGISTRY
+  script:
+    - docker -H 127.0.0.1 login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker -H 127.0.0.1 build -t $CONTAINER_IMAGE:$CI_COMMIT_REF_NAME $DOCKER_BUILD_ARGS .
+    - docker -H 127.0.0.1 push $CONTAINER_IMAGE
+  tags:
+    - test
+  only:
+    - develop
+    - master
+
+update:
+  stage: update
+  image: $CI_REGISTRY/devops/images/docker/buildimage:master
+  before_script:
+    - mkdir -p /etc/deploy
+    - KUBE_CONFIG=${K8S_TEST}
+    - CONTEXT=staging
+    - echo ${KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+    - kubectl version
+    - helm version
+    - echo $CI_PROJECT_NAMESPACE
+    - echo $CI_COMMIT_REF_SLUG
+    - kubectl --namespace $CI_PROJECT_NAMESPACE get pods
+  script:
+    - kubectl --namespace=$CI_PROJECT_NAMESPACE delete pod -l app=$CI_PROJECT_NAME
+    - kubectl --namespace=$CI_PROJECT_NAMESPACE get pods
+  only:
+    - develop
