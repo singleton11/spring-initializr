@@ -1,0 +1,7 @@
+ARG CI_REGISTRY
+ARG IMAGE=perseus/images/java11:master
+
+FROM ${CI_REGISTRY}/${IMAGE}
+
+ADD build/libs/{{applicationName}}.jar .
+ENTRYPOINT exec java -Dspring.profiles.active=$PROFILE $JAVA_MEM $JAVA_EXT -jar {{applicationName}}.jar

@@ -166,4 +166,12 @@ public class StartProjectGenerationConfiguration {
     );
   }
 
+	@Bean
+	public DockerfileProjectContributor dockerfileProjectContributor() {
+		return new DockerfileProjectContributor(
+				description,
+				new MustacheTemplateRenderer("classpath:/templates")
+		);
+	}
+
 }
