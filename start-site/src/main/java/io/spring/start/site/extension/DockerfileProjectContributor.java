@@ -28,7 +28,7 @@ public class DockerfileProjectContributor implements ProjectContributor {
     Path file = Files.createFile(projectRoot.resolve("Dockerfile"));
     Map<String, String> model = new HashMap<>();
     model.put("applicationName", description.getArtifactId());
-    String content = templateRenderer.render("bootstrap", model);
+    String content = templateRenderer.render("dockerfile", model);
     try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(file))) {
       writer.write(content);
     }
