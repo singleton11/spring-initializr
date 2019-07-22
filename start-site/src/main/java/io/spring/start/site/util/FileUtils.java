@@ -14,16 +14,14 @@ public class FileUtils {
 
   public FileUtils(
       ResolvedProjectDescription description,
-      InitializrMetadata metadata,
       Path projectRoot
   ) {
     this.projectRoot = projectRoot;
 
     packageDirectory = description
         .getBuildSystem()
-        .getMainDirectory(projectRoot, description.getLanguage()) + "/" + metadata
+        .getMainDirectory(projectRoot, description.getLanguage()) + "/" + description
         .getPackageName()
-        .getContent()
         .replace('.', '/');
   }
 

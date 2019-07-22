@@ -120,7 +120,6 @@ public class StartProjectGenerationConfiguration {
 	public SwaggerProjectContributor swaggerProjectContributor() {
 		return new SwaggerProjectContributor(
 				new MustacheTemplateRenderer("classpath:/templates"),
-				metadata,
 				description
 		);
 	}
@@ -130,8 +129,7 @@ public class StartProjectGenerationConfiguration {
 	public BaseControllerProjectContributor baseControllerProjectContributor() {
 		return new BaseControllerProjectContributor(
 				new MustacheTemplateRenderer("classpath:/templates"),
-				metadata,
-				description
+        description
 		);
 	}
 
